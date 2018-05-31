@@ -1,0 +1,102 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.2.RELEASE'
+		activeMQVersion='5.7.0'
+		aspectJVersion='1.7.2'
+		commonsLangVersion = '3.1'
+		ehcacheVersion='2.7.4'
+		ehcacheJCacheVersion='1.4.0-beta1'
+		h2Version='1.4.182'
+		hamcrestVersion = '1.3'
+		hibernateVersion='4.1.6.Final'
+		hibernateEntityManagerVersion='4.0.1.Final'
+		hibernateValidatorVersion = '5.0.1.Final'
+		jacksonVersion='2.4.3'
+		javaxMailVersion='1.4.7'
+		jspApiVersion ='2.1'
+		jspElVersion = '2.2.4'
+		jstlVersion = '1.2'
+		junitVersion='4.12'
+		log4jVersion='1.2.14'
+		mockitoVersion='1.9.5'
+		servletApiVersion = '3.1.0'
+		slf4jVersion = '1.7.5'
+		springAMQPVersion='1.0.0.RELEASE'
+		springDataJpaVersion='1.3.2.RELEASE'
+		springSecurityVersion = '3.2.0.RELEASE'
+		springVersion='4.0.7.RELEASE'
+		springWebflowVersion='2.4.1.RELEASE'
+		systemRulesVersion='1.5.0'
+		thymeleafVersion = '2.1.3.RELEASE'
+		tilesVersion = '3.0.1'
+		mysql_Java = '5.1.38'
+		commons_dbcp = '1.4'
+		mybatis_spring ='1.2.5'
+		mybatisVersion = '3.3.1'
+	}
+	repositories {
+		mavenCentral()
+		maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+		maven { url 'http://maven.springframework.org/release' }
+		maven { url 'http://maven.springframework.org/milestone' }
+		maven { url 'http://maven.springframework.org/snapshot' }
+		maven { url 'http://download.java.net/maven/2' }
+	}
+
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+	dependencies{
+		classpath "org.springframework:spring-core:$springVersion"
+		classpath "org.springframework:spring-context:$springVersion"
+		classpath "org.springframework:spring-jdbc:$springVersion"
+		classpath "org.mybatis:mybatis:$mybatisVersion"
+		classpath "org.mybatis:mybatis-spring:$mybatis_spring"
+		classpath "commons-dbcp:commons-dbcp:$commons_dbcp"
+		classpath "mysql:mysql-connector-java:$mysql_Java"
+		classpath "log4j:log4j:$log4jVersion"
+		classpath "com.h2database:h2:$h2Version"
+		classpath "javax.inject:javax.inject:1"
+		classpath "net.sf.ehcache:ehcache:$ehcacheVersion"
+		classpath "net.sf.ehcache:ehcache-jcache:$ehcacheJCacheVersion"
+		classpath "com.zaxxer:HikariCP:3.1.0"
+	}
+
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+
+group = 'com.jyyx.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+configurations {
+	providedRuntime
+}
+
+repositories {
+	maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+	maven { url 'http://maven.springframework.org/release' }
+	maven { url 'http://maven.springframework.org/milestone' }
+	maven { url 'http://maven.springframework.org/snapshot' }
+	maven { url 'http://download.java.net/maven/2' }
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter')
+//	compile('org.springframework.boot:spring-boot-starter-mybatis')
+//	compile('org.mybatis.spring.boot:mybatis-spring-boot-starter')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-jdbc')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+//	testCompile('org.springframework.boot:spring-boot-starter-test')
+
+}
