@@ -1,14 +1,20 @@
 package com.jyyx.example.springbootdemo.entity.base;
 
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
+import java.util.Date;
 
-public class Object {
+/**
+ * 实体类基类
+ * @author  jyyx
+ */
 
+public abstract class BaseObject implements Serializable {
     @Id
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;  //表主键id
     @Column(name = "CREATEUSER")
