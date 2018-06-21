@@ -14,18 +14,18 @@ import java.util.Date;
 
 public abstract class BaseObject implements Serializable {
     @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;  //表主键id
-    @Column(name = "CREATEUSER")
+    @Column(name = "createuser")
     String createUser;  //创建数据的用户id
-    @Column(name = "CREATEDATE")
+    @Column(name = "createdate")
     Date createDate;    //创建日期
-    @Column(name = "EDITUSER")
+    @Column(name = "edituser")
     String editUser;    //修改数据的用户id
-    @Column(name = "EDITDATE")
+    @Column(name = "editdate")
     Date editDate;  //修改时间
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     String isDeleted;   //删除状态 0未删 1已删
 
     public int getId() {

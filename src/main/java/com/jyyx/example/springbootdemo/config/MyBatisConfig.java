@@ -7,10 +7,12 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
 import javax.sql.DataSource;
@@ -18,7 +20,10 @@ import java.util.Properties;
 
 /**
  *  Created by jyyx on 2018/6/1
+ *  MyBatis配置
  */
+//@Configuration
+//@EnableTransactionManagement
 public class MyBatisConfig implements TransactionManagementConfigurer {
 
     @Autowired
@@ -42,7 +47,8 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
         //添加XML目录
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try{
-            bean.setMapperLocations(resolver.getResources("classpath*:jyyx/wx/mapper/*.xml"));
+            bean.setMapperLocations(resolver.getResources("classpath*:com/jyyx/example/springbootdemo/mapper/*Mapper.xml"));
+//            bean.setMapperLocations(resolver.getResources("classpath*:com.jyyx.example.springbootdemo.mapper.*.xml"));
             return bean.getObject();
         }catch (Exception e){
             e.printStackTrace();
@@ -54,12 +60,12 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
     public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory){
         return new SqlSessionTemplate(sqlSessionFactory);
     }
+
+    @Bean
     @Override
     public PlatformTransactionManager annotationDrivenTransactionManager() {
         return new DataSourceTransactionManager(dataSource);
     }
-    /**
-     * MyBatis配置
-     */
+
 
 }

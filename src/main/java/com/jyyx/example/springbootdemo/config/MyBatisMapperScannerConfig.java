@@ -10,14 +10,15 @@ import java.util.Properties;
 /**
  *  Created by jyyx on 2018/6/1
  */
-@Configuration
-@AutoConfigureAfter(MyBatisConfig.class)
+//@Configuration
+//@AutoConfigureAfter(MyBatisConfig.class)
 public class MyBatisMapperScannerConfig {
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer(){
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
         mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
-        mapperScannerConfigurer.setBasePackage("jyyx.wx.mapper");
+//        mapperScannerConfigurer.setBasePackage("jyyx.wx.mapper");
+        mapperScannerConfigurer.setBasePackage("com.jyyx.example.springbootdemo.mapper");
         Properties properties = new Properties();
         properties.setProperty("mappers","com.jyyx.example.springbootdemo.util.MyMapper");
         properties.setProperty("notEmpty","false");
