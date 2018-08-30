@@ -16,7 +16,7 @@ public abstract class BaseObject implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;  //表主键id
+    String id;  //表主键id
     @Column(name = "createuser")
     String createUser;  //创建数据的用户id
     @Column(name = "createdate")
@@ -26,13 +26,13 @@ public abstract class BaseObject implements Serializable {
     @Column(name = "editdate")
     Date editDate;  //修改时间
     @Column(name = "isdeleted")
-    String isDeleted;   //删除状态 0未删 1已删
+    int isDeleted;   //删除状态 0未删 1已删
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -68,11 +68,11 @@ public abstract class BaseObject implements Serializable {
         this.editDate = editDate;
     }
 
-    public String getIsDeleted() {
+    public int getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(String isDeleted) {
+    public void setIsDeleted(int isDeleted) {
         this.isDeleted = isDeleted;
     }
 

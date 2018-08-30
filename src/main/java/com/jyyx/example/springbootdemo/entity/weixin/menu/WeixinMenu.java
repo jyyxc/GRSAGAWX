@@ -1,13 +1,13 @@
 package com.jyyx.example.springbootdemo.entity.weixin.menu;
 
 public class WeixinMenu {
-    private Button[] buttons;
+    private Button[] button;
 
-    public Button[] getButtons() {
-        return buttons;
+    public Button[] getButton() {
+        return button;
     }
 
-    public void setButtons(Button[] buttons) {
-        this.buttons = buttons;
+    public void setButton(Button[] buttons) {
+        this.button = buttons;
     }
 }

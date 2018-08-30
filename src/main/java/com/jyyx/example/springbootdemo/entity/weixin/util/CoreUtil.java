@@ -1,10 +1,14 @@
 package com.jyyx.example.springbootdemo.entity.weixin.util;
+import com.jyyx.example.springbootdemo.entity.weixin.resp.Article;
+import com.jyyx.example.springbootdemo.entity.weixin.resp.NewsMessage;
 import com.jyyx.example.springbootdemo.entity.weixin.resp.RespTextMessage;
 import sun.misc.MessageUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,13 +18,13 @@ import java.util.Map;
 
 public class CoreUtil {
     //定义静态变量open_id
-    public static String open_id = "";
+    public static String open_id = "7";
 
     /**
      * 处理微信发来的请求
      */
 
-    public static String processRequest(HttpServletRequest request, HttpServletResponse response)throws Exception{
+    public static String processRequest(HttpServletRequest request, HttpServletResponse response){
         String respMessage = null;
         try{
             //默认返回的文本消息内容
@@ -29,7 +33,7 @@ public class CoreUtil {
             //xml请求解析
             Map<String,String> requestMap = MessageUtil.parseXml(request);
             //发送方账号(open_id)
-            String fromUserName = requestMap.get("FromUsername");
+            String fromUserName = requestMap.get("FromUserName");
             //公众账号
             String toUserName = requestMap.get("ToUserName");
             //消息类型
@@ -70,8 +74,33 @@ public class CoreUtil {
                 String eventType = requestMap.get("Event");
                 // 订阅
                 if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
-                    respContent = "欢迎关注。";
+                    List<Article> articleList = new ArrayList<Article>();
+                    NewsMessage newsMessage = new NewsMessage();
 
+
+                    Article article1 = new Article();
+                    article1.setTitle("公众号功能介绍");
+                    article1.setDescription("介绍此公众号使用教程");
+                    article1.setPicUrl("http://183.131.247.94/img/test.jpg");
+                    article1.setUrl("http://www.baidu.com");
+
+                    Article article2 = new Article();
+                    article2.setTitle("用户中心");
+                    article2.setPicUrl("http://183.131.247.94/img/brand.jpg");
+                    article2.setUrl("http://183.131.247.94/center/goCenter");
+
+                    articleList.add(article1);
+                    articleList.add(article2);
+
+                    newsMessage.setToUserName(fromUserName);
+                    newsMessage.setFromUserName(toUserName);
+                    newsMessage.setCreateTime(new Date().getTime());
+                    newsMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
+                    newsMessage.setFuncFlag(0);
+                    newsMessage.setArticleCount(articleList.size());
+                    newsMessage.setArticles(articleList);
+                    respContent = MessageUtil.newsMessageToXml(newsMessage);
+                    return respContent;
                 }
                 // 取消s订阅
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {

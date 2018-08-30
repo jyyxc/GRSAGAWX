@@ -1,14 +1,12 @@
 package com.jyyx.example.springbootdemo.controller;
 
 import com.jyyx.example.springbootdemo.entity.weixin.base.WxUser;
-import com.jyyx.example.springbootdemo.mapper.TestMapper;
 import com.jyyx.example.springbootdemo.service.weixin.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,8 +25,8 @@ public class TestController {
         WxUser wxUser = new WxUser();
         wxUser.setName("测试");
         wxUser.setTelephone("13082944530");
-        wxUser.setTokenid("123456");
-        wxUser.setPersoncard("220211199407310011");
+        wxUser.setOpenId("123456");
+        wxUser.setIdCard("220211199407310011");
 //        testMapper.insert(wxUser);
         map.put("sayHi","欢迎使用spring-boot");
         map.put("sayHello",text);

@@ -7,11 +7,6 @@ buildscript {
 		mavenLocal()
 		mavenCentral()
 		jcenter()
-		maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
-		maven { url 'http://maven.springframework.org/release' }
-		maven { url 'http://maven.springframework.org/milestone' }
-		maven { url 'http://maven.springframework.org/snapshot' }
-		maven { url 'http://download.java.net/maven/2' }
 		maven{ url 'http://repo.spring.io/plugins-release'}
 	}
 
@@ -24,10 +19,8 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'war'
 
 group = 'com.jyyx.example'
 version = '0.0.1-SNAPSHOT'
@@ -50,8 +43,14 @@ repositories {
 	mavenCentral()
 }
 
+//configurations {
+//
+//	compile.exclude group:'ch.qos.logback'
+//}
 configurations {
-	compile.exclude group:'ch.qos.logback'
+	all*.exclude module: 'spring-boot-starter-logging'
+	all*.exclude module: 'logback-classic'
+	all*.exclude module: 'log4j-over-slf4j'
 }
 
 configure(allprojects){
@@ -66,17 +65,46 @@ dependencies {
 	compile group:'com.github.pagehelper',name:'pagehelper',version:'4.1.6'
 	compile group:'tk.mybatis',name:'mapper',version:'3.3.6'
 	compile group: 'dom4j', name: 'dom4j', version: '1.6.1'
-	compile group: 'xstream', name: 'xstream', version: '1.2.2'
+	compile group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.10'
 	compile('net.sf.json-lib:json-lib:2.4:jdk15')
-
-	compile('org.springframework.boot:spring-boot-starter-jdbc')
+	compile('org.springframework.boot:spring-boot-starter-jdbc'){
+		exclude module:'org.springframework.boot:spring-boot-starter-logging'
+	}
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-web'){
 		exclude module:'org.springframework.boot:spring-boot-starter-logging'
 	}
-//	compile('org.springframework.boot:spring-boot-starter-log4j2')
+
+//	compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
+//	compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+	compile('org.springframework.boot:spring-boot-starter-log4j2:1.5.7.RELEASE',)
+	compile group: 'org.apache.logging.log4j', name: 'log4j-1.2-api', version: '2.11.0'
+//	compile group: 'log4j', name: 'log4j', version: '1.2.17'
+//	compile "org.apache.logging.log4j:log4j-api:2.8"
+//	compile "org.apache.logging.log4j:log4j-core:2.8"
 	optional "org.springframework.boot:spring-boot-configuration-processor"
 	compile fileTree(dir:'libs',include:['*.jar'])
 	runtime('mysql:mysql-connector-java')
 }
 compileJava.dependsOn(processResources)
+
+
+//jar {
+//	String someString = ''
+//	configurations.runtime.each {someString = someString + " lib//"+it.name}
+//	manifest {
+//		attributes 'Main-Class': 'com.jyyx.example.springbootdemo.SpringBootDemoApplication'
+//		attributes 'Class-Path': someString
+//	}
+//}
+//	//清除上次的编译过的文件
+//task clearPj(type:Delete){
+//	delete 'build','target'
+//}
+//task copyJar(type:Copy){
+//	from configurations.runtime
+//	into ('build/libs')
+//}
+//	//把JAR复制到目标目录
+//task release(type: Copy,dependsOn: [build,copyJar]) {
+//}

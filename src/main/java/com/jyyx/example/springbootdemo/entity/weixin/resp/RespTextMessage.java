@@ -15,4 +15,6 @@ public class RespTextMessage extends RespMessage{
     public void setContent(String content) {
         Content = content;
     }
+
+
 }

@@ -10,8 +10,8 @@ import java.util.Properties;
 /**
  *  Created by jyyx on 2018/6/1
  */
-//@Configuration
-//@AutoConfigureAfter(MyBatisConfig.class)
+@Configuration
+@AutoConfigureAfter(MyBatisConfig.class)
 public class MyBatisMapperScannerConfig {
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer(){

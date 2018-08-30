@@ -3,6 +3,7 @@ package com.jyyx.example.springbootdemo.entity.weixin.util;
 import com.jyyx.example.springbootdemo.entity.weixin.base.AccessToken;
 import com.jyyx.example.springbootdemo.entity.weixin.menu.WeixinMenu;
 import com.jyyx.example.springbootdemo.entity.weixin.template.WxTemplate;
+import jdk.nashorn.internal.parser.Token;
 import org.slf4j.LoggerFactory;
 
 import org.slf4j.Logger;
@@ -142,7 +143,7 @@ public class WeixinUtil {
     public static int createMenu(WeixinMenu menu){
         int result = 0;
         //拼装创建菜单url
-        String requestUrl =  menu_create_url.replace("ACCESS_TOKEN","token");
+        String requestUrl =  menu_create_url.replace("ACCESS_TOKEN",TokenUtil.accessToken.getToken());
         //将菜单对象转换成json字符串
         String jsonMenu = JSONObject.fromObject(menu).toString();
         //调用接口创建菜单
@@ -150,7 +151,7 @@ public class WeixinUtil {
         if(null != jsonObject){
             if(0 != jsonObject.getInt("errcode")){
                 result = jsonObject.getInt("errcode");
-                log.error("创建菜单失败 errcode:{"+jsonObject.getInt("errcode")+"} errmsg:{"+jsonObject.getString("errmsg")+"}");
+               System.out.println("创建菜单失败 errcode:{"+jsonObject.getInt("errcode")+"} errmsg:{"+jsonObject.getString("errmsg")+"}");
             }
         }
         return  result;
@@ -163,7 +164,7 @@ public class WeixinUtil {
 
     public static String sendModelMsg(WxTemplate wxTemplate){
         //替换地址中的accessToken参数
-        String requestUrl = send_model_msg_url.replace("ACCESS_TOKEN","token");
+        String requestUrl = send_model_msg_url.replace("ACCESS_TOKEN",TokenUtil.accessToken.getToken());
         //把wxTemplate对象转为json字符串
         String templateJson = JSONObject.fromObject(wxTemplate).toString();
         JSONObject jsonObject = httpRequest(requestUrl,"POST",templateJson);

@@ -15,6 +15,8 @@ public class RespMessage {
     private long CreateTime;
     //消息类型 (text/image/location/link)
     private  String MsgType;
+    //位0x0001背标志时，星标刚收到的消息
+    private int FuncFlag;
 
     public String getToUserName() {
         return ToUserName;
@@ -56,6 +58,5 @@ public class RespMessage {
         FuncFlag = funcFlag;
     }
 
-    //位0x0001背标志时，星标刚收到的消息
-    private int FuncFlag;
+
 }

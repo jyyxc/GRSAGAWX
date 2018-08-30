@@ -24,7 +24,8 @@ public class CorsFilterUtil implements Filter {
         response.setHeader("Access-Contro-Allow-Methods","POST,GET,OPTIONS,DELETE,PUT,OPTIONS,PATCH");
         response.setHeader("Access-Control-Max-Age","3600");
         response.setHeader("Access-Control-Allow-Headers","x-requested-with,Content-type,Accept,Origin,LastModified");
-        System.out.println("***************************过滤器被使用****************************");
+//        System.out.println("***************************过滤器被使用****************************");
+        logger.info("***************************过滤器被使用****************************");
         chain.doFilter(req,res);
     }
 
