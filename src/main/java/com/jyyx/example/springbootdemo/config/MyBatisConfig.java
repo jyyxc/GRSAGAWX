@@ -47,7 +47,7 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
         //添加XML目录
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try{
-            bean.setMapperLocations(resolver.getResources("classpath*:com/jyyx/example/springbootdemo/mapper/*Mapper.xml"));
+            bean.setMapperLocations(resolver.getResources("classpath*:com/jyyx/example/springbootdemo/mapper/*/*Mapper.xml"));
 //            bean.setMapperLocations(resolver.getResources("classpath*:com.jyyx.example.springbootdemo.mapper.*.xml"));
             return bean.getObject();
         }catch (Exception e){

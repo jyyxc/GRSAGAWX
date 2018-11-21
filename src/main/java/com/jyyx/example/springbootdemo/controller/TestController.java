@@ -1,9 +1,12 @@
 package com.jyyx.example.springbootdemo.controller;
 
+import com.jyyx.example.springbootdemo.entity.test.CbtTestConfig;
+import com.jyyx.example.springbootdemo.entity.test.TestTran;
 import com.jyyx.example.springbootdemo.entity.weixin.base.WxUser;
-import com.jyyx.example.springbootdemo.service.weixin.TestService;
+import com.jyyx.example.springbootdemo.service.test.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,39 +21,21 @@ public class TestController {
     @Autowired
     private TestService testService;
 
-    @RequestMapping(value="/test")
-    public String test(HashMap<String,String> map,
-    @RequestParam(value ="text")String text)
-    {
-        WxUser wxUser = new WxUser();
-        wxUser.setName("测试");
-        wxUser.setTelephone("13082944530");
-        wxUser.setOpenId("123456");
-        wxUser.setIdCard("220211199407310011");
-//        testMapper.insert(wxUser);
-        map.put("sayHi","欢迎使用spring-boot");
-        map.put("sayHello",text);
-        return "test";
-    }
 
-
-    @RequestMapping(value="/testQuery")
+    @RequestMapping(value="testTran")
     @ResponseBody
-    public String testQuery() throws Exception {
-        List<WxUser> userList = testService.queryAll();
-        String str = "";
-        for(WxUser w : userList){
-            str += w.toString() + ",";
+    @Transactional
+    public void testTran(){
+        for(int i = 0; i < 5 ; i++){
+            TestTran testTran = new TestTran();
+            if(i !=3) {
+                testTran.setName("aaa");
+            }else{
+                testTran.setName("bbbbbbbb");
+            }
+            testService.insert(testTran);
+            System.out.println(testTran.getId());
         }
-        str = str.substring(0,str.length() - 1);
-        return str;
-    }
-
-    @RequestMapping(value="/getCount")
-    @ResponseBody
-    public int getCount() throws Exception {
-        int i  = testService.getCount();
-        return i;
     }
 }
 
